@@ -16,7 +16,7 @@
 
 module.exports = function(RED) {
     "use strict";
-    function StopTimer2(n) {
+    function Stoptimer3(n) {
         RED.nodes.createNode(this, n);
 
         this.units = n.units || "Second";
@@ -25,19 +25,31 @@ module.exports = function(RED) {
         this.payloadval = n.payloadval || "0";
         this.payloadtype = n.payloadtype || "num";
 
-        if (this.duration <= 0) {
-            this.duration = 0;
-        } else {
-            if (this.units == "Second") {
-                this.duration = this.duration * 1000;
+        function setDuration(dur, units) {
+            if (dur <= 0) {
+                dur = 0;
+            } else {
+                switch (units.toLowerCase()) {
+                    case "second":
+                        dur = dur * 1000;
+                        break;
+
+                    case "minute":
+                        dur = dur * 1000 * 60;
+                        break;
+
+                    case "hour":
+                        dur = dur * 1000 * 60 * 60;
+                        break;
+
+                    default:
+                        break;
+                }
             }
-            if (this.units == "Minute") {
-                this.duration = this.duration * 1000 * 60;
-            }
-            if (this.units == "Hour") {
-                this.duration = this.duration * 1000 * 60 * 60;
-            }
+            return dur;
         }
+
+        this.duration = setDuration(this.duration, this.units);
 
         if ((this.payloadtype === "num") && (!isNaN(this.payloadval))) {
             this.payloadval = Number(this.payloadval);
@@ -62,12 +74,33 @@ module.exports = function(RED) {
                 stopped = false;
                 clearTimeout(timeout);
                 timeout = null;
-                if (msg.payload == "stop" || msg.payload == "STOP") {
+                if (msg.payload && 
+                        typeof msg.payload === "string" && 
+                        msg.payload.toLowerCase() == "stop") {
                     node.status({fill: "red", shape: "ring", text: "stopped"});
                     stopped = true;
                     var msg2 = RED.util.cloneMessage(msg);
                     msg2.payload = "stopped";
                     node.send([null, msg2]);
+                } else if (msg.duration && !isNaN(msg.duration)) {
+                    // check for change in units also
+                    if (msg.units) {
+                        this.units = msg.units;
+                    }
+
+                    this.duration = setDuration(msg.duration, this.units);
+
+                    msg._timerpass = true;
+                    node.status({fill: "green", shape: "dot", text: "running"});
+                    timeout = setTimeout(function() {
+                        node.status({});
+                        if(stopped === false) {
+                            var msg2 = RED.util.cloneMessage(msg);
+                            msg2.payload = node.payloadval;
+                            node.send([msg, msg2]);
+                        }
+                        timeout = null;
+                    }, node.duration);
                 } else {
                     msg._timerpass = true;
                     node.status({fill: "green", shape: "dot", text: "running"});
@@ -90,5 +123,5 @@ module.exports = function(RED) {
             node.status({});
         });
     }
-    RED.nodes.registerType("stoptimer2", StopTimer2);
+    RED.nodes.registerType("stoptimer3", Stoptimer3);
 }

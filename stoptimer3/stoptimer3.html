@@ -15,7 +15,7 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('stoptimer2',{
+    RED.nodes.registerType('stoptimer3',{
         category: 'function',
         color:"#869869",
         defaults: {
@@ -61,7 +61,11 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="stoptimer2">
+<script type="text/x-red" data-template-name="stoptimer3">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name"></input>
+    </div>
     <div class="form-row">
         <label for="node-input-duration"><i class="fa fa-clock-o"></i> Timer</label>
         <input type="hidden" id="node-input-durationType">
@@ -81,13 +85,10 @@
         <input type="hidden" id="node-input-payloadtype">
         <input style="width: 70%" type="text" id="node-input-payloadval">
     </div>
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name"></input>
-    </div>
 </script>
 
-<script type="text/x-red" data-help-name="stoptimer2">
-    <p>Sends the <code>msg</code> through the first output after the set timer duration. If a new <code>msg</code> is received before the timer has ended, it will replace the existing <code>msg</code> and the timer will be restarted, unless the new <code>msg</code> has a <code>payload</code> of <code>stop</code> or <code>STOP</code>, in which case it will stop the timer. The second output allows you to send an additional payload of a number, string or boolean. If the timer is stopped, the second output will automatically send a payload of <code>stopped</code>.</p>
+<script type="text/x-red" data-help-name="stoptimer3">
+    <p>Sends the <code>msg</code> through the first output after the set timer duration. If a new <code>msg</code> is received before the timer has ended, it will replace the existing <code>msg</code> and the timer will be restarted. If the new <code>msg</code> has a payload of <code>stop</code> (case insensitive) it will stop the timer. If the new <code>msg</code> has a <code>msg.duration</code> property set to a non-zero numeric value, the timer will reset overriding the configured duration value. You can also set a <code>msg.units</code> property to one of <code>Millisecond</code>, <code>Second</code>, <code>Minute</code>, or <code>Hour</code> (case insenstive) to override the configured units of the duration timer.</p>
+    <p>The second output allows you to send an additional payload of a number, string or boolean. If the timer is stopped, the second output will automatically send a payload of <code>stopped</code>.</p>
     <p>This is like the built in delay function of node-red, but with the ability to not only restart the timer, but to stop it as well.</p>
 </script>
