@@ -1,7 +1,9 @@
 Stop Timer for node-red
 ----------------------------
 
-Sends the `msg` through the first output after the set timer duration. If a new `msg` is received before the timer has ended, it will replace the existing `msg` and the timer will be restarted, unless the new `msg` has a payload of `stop` or `STOP`, in which case it will stop the timer. The second output allows you to send an additional payload of a number, string or boolean. If the timer is stopped, the second output will automatically send a payload of `stopped`.
+Sends the `msg` through the first output after the set timer duration. If a new `msg` is received before the timer has ended, it will replace the existing `msg` and the timer will be restarted. If the new `msg` has a payload of `stop` (case insensitive) it will stop the timer. If the new `msg` has a `msg.duration` property set to a non-zero numeric value, the timer will reset overriding the configured duration value. You can also set a `msg.units` property to one of `Millisecond`, `Second`, `Minute`, or `Hour` (case insenstive) to override the configured units of the duration timer.
+
+The second output allows you to send an additional payload of a number, string or boolean. If the timer is stopped, the second output will automatically send a payload of `stopped`.
 
 This is like the built in delay function of node-red, but with the ability to not only restart the timer, but to stop it as well.
 
@@ -19,4 +21,6 @@ This is like the built in delay function of node-red, but with the ability to no
 
 0.0.7 - Clarified the instructions with respect to the what happens to the existing message when a new message arrives.
 
-0.1.0 - merc1031: Simple support for setting time from environment to allow parametrized use in subflows
+0.1.0 - merc1031: Simple support for setting time from environment to allow parameterized use in subflows
+
+0.1.1 - zybron: Support for setting new duration via msg properties.
