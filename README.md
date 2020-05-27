@@ -24,3 +24,5 @@ This is like the built in delay function of node-red, but with the ability to no
 0.1.0 - merc1031: Simple support for setting time from environment to allow parameterized use in subflows
 
 0.1.1 - zybron: Support for setting new duration via msg properties.
+
+0.1.2 - zybron: Fix the icon
