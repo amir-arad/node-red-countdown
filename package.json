@@ -1,6 +1,6 @@
 {
   "name": "@amir-arad/node-red-countdown",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Delays a message passing through the node. Much like the built in delay node, but supports one delayed message at a time, and reports progress.",
   "repository": "git@github.com:amir-arad/node-red-countdown.git",
   "author": "amir-arad <greenshade@gmail.com>",
