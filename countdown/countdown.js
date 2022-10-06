@@ -54,7 +54,6 @@ module.exports = function (RED) {
     let currentJob = null;
     let startTimeOverride = 0;
     this.on("input", (msg, send, done) => {
-      console.log("input", msg);
       try {
         currentJob?.destroy();
         nodeContext.set("lastMsg", msg);
@@ -108,7 +107,6 @@ module.exports = function (RED) {
     });
     const lastMsg = nodeContext.get("lastMsg");
     if (lastMsg) {
-      console.log("lastMsg!!", lastMsg);
       startTimeOverride = nodeContext.get("startTime");
       this.receive(lastMsg);
     }
