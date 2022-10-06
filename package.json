@@ -12,8 +12,12 @@
     "delay",
     "stoptimer"
   ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {},
   "node-red": {
+    "version": ">=1.0.0",
     "nodes": {
       "countdown": "countdown/countdown.js"
     }
