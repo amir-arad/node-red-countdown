@@ -1,12 +1,9 @@
 {
-  "name": "node-red-contrib-stoptimer3",
-  "version": "0.1.2",
-  "description": "Sends the msg through the first output after the set timer duration. If a new msg is received before the timer has ended, it will replace the existing msg and the timer will be restarted, unless the new msg has a payload of 'stop' or 'STOP', in which case it will stop the timer. The second output allows you to send an additional payload of a number, string or boolean. If the timer is stopped, the second output will automatically send a payload of 'stopped'.",
-  "dependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zybron/node-red-contrib-stoptimer3"
-  },
+  "name": "@amir-arad/node-red-countdown",
+  "version": "0.0.1",
+  "description": "Delays a message passing through the node. Much like the built in delay node, but supports one delayed message at a time, and reports progress.",
+  "repository": "git@github.com:amir-arad/node-red-contrib-countdown.git",
+  "author": "amir-arad <greenshade@gmail.com>",
   "license": "Apache-2.0",
   "keywords": [
     "node-red",
@@ -14,12 +11,10 @@
     "delay",
     "stoptimer"
   ],
+  "dependencies": {},
   "node-red": {
     "nodes": {
-      "stoptimer3": "stoptimer3/stoptimer3.js"
+      "countdown": "countdown/countdown.js"
     }
-  },
-  "author": {
-    "name": "zybron"
   }
 }
